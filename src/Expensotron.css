@@ -1,0 +1,40 @@
+.expensotron {
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.mapview {
+    flex: 1.6 1 auto;
+    height: 100%;
+}
+
+.infoview {
+    flex: 1 1 auto;
+    height: 100%;
+    background-color: lightblue;
+}
+
+.cons {
+    stroke-width: 0.5px;
+    stroke: none;
+    transition: opacity 0.2s linear;
+}
+
+.cons:not(.zoomed):hover {
+    opacity: 0.8;
+}
+
+.cons.zoomed {
+    opacity: 0.3;
+}
+
+.cons.zoomed.focused {
+    opacity: 0.6;
+    stroke: black;
+    stroke-width: 1px;
+}
+
+.cons.zoomed.focused:hover {
+    opacity: 0.2;
+}
