@@ -99,7 +99,6 @@ class MapView extends Component {
       })
       .attr('d', path)
       .style('fill', (d) => this._colours(d.info.reg))
-      .style('stroke', (d) => this._colours(d.info.reg))
       .on('click', (d) => {
         // Prevent re-zoom
         d3.event.stopPropagation();
@@ -151,7 +150,15 @@ class MapView extends Component {
       // 2nd Set relevant transitions on constituency elements
       this._cons
         .classed('zoomed', this.props.focusedRegion)
-        .classed('focused', (d) => this._isFocusedRegion(d));
+        .classed('focused', (d) => this._isFocusedRegion(d))
+        .classed('selected', (d) => this.props.focusedConstituency === d.id)
+        .style('stroke', (d) => {
+          if (this.props.focusedConstituency === d.id) {
+            return 'black';
+          } else {
+            return this._colours(d.info.reg);
+          }
+        });
     }
 
     return (

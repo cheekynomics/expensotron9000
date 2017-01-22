@@ -4,7 +4,7 @@ import App from './App';
 // Stop eslint complaining about 'it'
 /* eslint-disable no-undef */
 
-it('renders without crashing', () => {
+it('renders everything without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<App />, div);
 });

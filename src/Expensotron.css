@@ -18,7 +18,8 @@
 .cons {
     stroke-width: 0.5px;
     stroke: none;
-    transition: opacity 0.2s linear;
+    transition: opacity 0.2s linear, transform 0.3s ease;
+    transform: '';
 }
 
 .cons:not(.zoomed):hover {
@@ -37,4 +38,15 @@
 
 .cons.zoomed.focused:hover {
     opacity: 0.2;
+}
+
+.cons.zoomed.selected {
+
+    opacity: 1;
+    transform: translate(10px, -10px);
+    z-index: -100;
+}
+
+.cons.zoomed.focused.selected:hover {
+    opacity: 1;
 }
