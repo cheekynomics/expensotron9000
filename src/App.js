@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import MapView from './components/MapView';
-// import InfoView from './components/InfoView';
 
 import './Expensotron.css';
 
