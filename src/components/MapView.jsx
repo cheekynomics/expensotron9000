@@ -48,6 +48,10 @@ class MapView extends Component {
     let bs = svg._groups[0][0].getBoundingClientRect();
     this._bs = bs;
 
+    this._zoom = d3.zoom().on('zoom', () => {
+      this._transGroup.attr('transform', d3.event.transform);
+    });
+
     let projection = d3.geoAlbers()
       .parallels([50, 60]) // Conic parallels (latitudes) that sandwich GBR for minimal distortion.
       .rotate([-4, 0]) // Rotate to minimise distortion over the UK.
@@ -131,21 +135,20 @@ class MapView extends Component {
     if (this._transGroup) {
 
       // 1st set relevant transform on group element
+      let transform = d3.zoomIdentity;
+      if (this.props.focusedRegion !== null) {
+        let bounds = this._bounds[this.props.focusedRegion];
+        let dx = bounds[1][0] - bounds[0][0];
+        let dy = bounds[1][1] - bounds[0][1];
+        let x = (bounds[0][0] + bounds[1][0]) / 2;
+        let y = (bounds[0][1] + bounds[1][1]) / 2;
+        let scale = .9 / Math.max(dx / this._bs.width, dy / this._bs.height);
+        let translate = [this._bs.width / 2 - scale * x, this._bs.height / 2 - scale * y];
+        transform = d3.zoomIdentity.translate(...translate).scale(scale);
+      }
+
       this._transGroup.transition().duration(500)
-        .attr('transform', () => {
-          if (this.props.focusedRegion !== null) {
-            let bounds = this._bounds[this.props.focusedRegion];
-            let dx = bounds[1][0] - bounds[0][0];
-            let dy = bounds[1][1] - bounds[0][1];
-            let x = (bounds[0][0] + bounds[1][0]) / 2;
-            let y = (bounds[0][1] + bounds[1][1]) / 2;
-            let scale = .9 / Math.max(dx / this._bs.width, dy / this._bs.height);
-            let translate = [this._bs.width / 2 - scale * x, this._bs.height / 2 - scale * y];
-            return `translate(${translate})scale(${scale})`;
-          } else {
-            return '';
-          }
-        });
+        .call(this._zoom.transform, transform);
 
       // 2nd Set relevant transitions on constituency elements
       this._cons
