@@ -1,18 +1,21 @@
 .expensotron {
     height: 100%;
-    display: flex;
-    flex-flow: row nowrap;
 }
 
 .mapview {
-    flex: 1.6 1 auto;
-    height: 100%;
+    height: 50%;
 }
 
 .infoview {
-    flex: 1 1 auto;
-    height: 100%;
+    height: 50%;
+    display: flex;
+    flex-flow: row nowrap;
     background-color: lightblue;
+}
+
+.groupedbar {
+    display: flex;
+    flex: 1 1 auto;
 }
 
 .cons {
@@ -48,4 +51,19 @@
 
 .cons.zoomed.focused.selected:hover {
     opacity: 1;
+}
+
+.axis.y .tick line {
+    stroke-dasharray: 2 2 ;
+    stroke: #ccc;
+}
+
+.bar {
+  stroke: #333;
+  stroke-width: 1;
+  transition: opacity 0.4s linear;
+}
+
+.faded rect {
+    opacity: 0.2;
 }

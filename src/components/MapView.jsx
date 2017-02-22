@@ -33,9 +33,11 @@ let constituencies = constituencies_obj.features;
 class MapView extends Component {
 
   componentDidMount() {
+    let {top, bottom} = this._container._groups[0][0].getBoundingClientRect();
     this._svg.style('width', '100%');
-    this._svg.style('height', '100%');
+    this._svg.style('height', bottom - top);
     this._transGroup = this._svg.append('g');
+
 
     let pad = 20;
     let svg = this._svg;
@@ -165,7 +167,7 @@ class MapView extends Component {
     }
 
     return (
-      <div className="mapview">
+      <div className="mapview" ref={ (c) => this._container = d3.select(c) }>
         <svg ref={ (c) => this._svg = d3.select(c) } />
       </div>);
   }
