@@ -69,7 +69,8 @@ class App extends Component {
                                     b : 70,
                                     r : 20}}
                             data = {expenses}
-                            focusedRegion= { id_to_name[this.state.focusedRegion] }/>
+                            focusedRegion= { id_to_name[this.state.focusedRegion] }
+                            selectRegion={ this._selectRegion }/>
         </InfoView>
       </div>);
   }

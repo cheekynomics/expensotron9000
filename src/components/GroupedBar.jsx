@@ -1,6 +1,18 @@
 import * as d3 from 'd3';
 import React, {Component} from 'react';
 
+const name_to_id = {
+    'North East': 'E15000001',
+    'North West': 'E15000002',
+    'Yorkshire & the Humber': 'E15000003',
+    'East Midlands': 'E15000004',
+    'West Midlands': 'E15000005',
+    'Eastern': 'E15000006',
+    'London': 'E15000007',
+    'South East': 'E15000008',
+    'South West': 'E15000009'
+};
+
 
 class GroupedBarChart extends Component{
 
@@ -106,8 +118,8 @@ class GroupedBarChart extends Component{
             .call(this.setFontSizeAndColour, 20);
 
         d3.selectAll(".axis.x > .tick > text")
-            .call(this.setFontSizeAndColour, 12)
-            ;
+            .on('click', (e) => this.props.selectRegion(name_to_id[e]))
+            .call(this.setFontSizeAndColour, 12);
     }
 
     setColours(current, comparison, positive, negative){
